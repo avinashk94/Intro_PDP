@@ -1,0 +1,21 @@
+# This is minimal configuration file for IntroPDP
+# v. 20170822
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.synced_folder "../../Assignments","/home/ubuntu/IntroPDP"
+
+  if Vagrant.has_plugin?("vagrant-timezone")
+    config.timezone.value = :host
+  end
+
+  # If you want to spare more cores or RAM
+  # for your VM, this is the place:
+  config.vm.provider "virtualbox" do |v|
+    v.name = "intropdp"
+    v.cpus = "4"
+    v.memory = "4096"
+  end
+
+  config.vm.provision :shell, path: "bootstrap.sh"
+end

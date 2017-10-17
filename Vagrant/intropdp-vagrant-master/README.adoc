@@ -1,0 +1,53 @@
+= Vagrant for IntroPDP
+
+This repository (`intropdp-vagrant`) provides a minimal configuration to
+boot up a VirtualBox VM with a development environment that you can use to
+work on the programming assignments for IntroPDP without the need for
+a full scale HPC/Data center.
+
+Vagrant is a good option for macOS and Windows users.
+If you already have Ubuntu installed, you can download only `bootstrap.sh`
+script, and run it on your Ubuntu with sudo:
+* `sudo ./bootstrap.sh`
+
+== Installation
+
+. Make sure that you have https://git-scm.com/[git],
+https://www.virtualbox.org/[VirtualBox] and
+https://www.vagrantup.com/[Vagrant] installed.
+. Install Vagrant plugins to provide VirtualBox guest additions,
+and synchronize time between your VM guest and host:
+* `vagrant plugin install vagrant-vbguest`
+* `vagrant plugin install vagrant-timezone`
+. Clone this project into the directory that you will be using for development:
+* `git clone https://gitlab.com/IntroPDP/intropdp-vagrant.git`
+. Make sure that you have 15GB of free storage to deploy new VM
+with the development environment.
+
+== Deployment
+
+. Modify `Vagrantfile` to your liking. Specifically, you may consider increasing/decresing
+the number of cores and the available memory.
+. Boot up the Vagrant box. This will initiate VM deployment and provisioning.
+Depending on the speed of your Internet connection, and your host machine,
+the first bootup may take anywhere between 15min to 1h
+(subsequent bootups, if neceessary, will be very fast):
+* `vagrant up`
+
+== Usage
+
+Once the machine is up you can use all https://www.vagrantup.com/docs/cli/[Vagrant supported functionality].
+Specifically:
+
+* `vagrant ssh` will log you to the VM.
+* `vagrant suspend` will suspend the VM.
+* `vagrant resume` will resume the suspended VM.
+* `vagrant provision` will rerun `bootstrap.sh` within the VM
+(recommended only after `intropdp-vagrant` updates).
+
+Below are several details regarding the VM environment:
+
+* The default VM user is `ubuntu`.
+* `Apache Spark` is installed in the `/opt` folder.
+* Files in your working Vagrant directory (the one in which you booted up VM) are
+shared with the VM via `/vagrant` directory.
