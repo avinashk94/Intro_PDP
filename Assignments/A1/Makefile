@@ -1,5 +1,5 @@
 CXX=mpicxx
-CXXFLAGS=-std=c++14 -O3 -Wall
+CXXFLAGS=-std=c++11 -O3 -Wall
 
 all: a1
 
