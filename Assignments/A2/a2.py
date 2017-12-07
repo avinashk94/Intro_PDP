@@ -43,8 +43,6 @@ def smallStar2(v):
             list.append((v[0],i))
     return list
 
-
-
 if __name__ == "__main__":
     conf = SparkConf().setAppName("Test1")
     sc = SparkContext(conf = conf)
@@ -58,16 +56,10 @@ if __name__ == "__main__":
         W = V
         V = V.flatMap(largeStar).groupByKey().map(lambda x : (x[0], list(x[1])))
         V = V.flatMap(largeStar2).distinct()
-        print("Print2",V.collect())
+        print("Print After LargeStar",V.collect())
         V = V.flatMap(smallStar).groupByKey().map(lambda x : (x[0], list(x[1])))
         V = V.flatMap(smallStar2).distinct()
-        print("Print3",V.collect())
-        V = V.flatMap(largeStar).groupByKey().map(lambda x : (x[0], list(x[1])))
-        V = V.flatMap(largeStar2).distinct()
-        print("Print4",V.collect())
-        V = V.flatMap(smallStar).groupByKey().map(lambda x : (x[0], list(x[1])))
-        V = V.flatMap(smallStar2).distinct()
-        print("Print1111111110",V.collect())
+        print("Print After SmallStar",V.collect())
         run = W.subtractByKey(V).count()
 
     V.coalesce(1).saveAsTextFile("out")
