@@ -21,7 +21,7 @@ using namespace std;
 __global__ void evaluate(float *x, float *y, int n, float h){
     int idx = threadIdx.x;
     if (idx == 0) {
-        cout<<x[idx];
+        printf("%d\n",x[idx]);
     }
     y[idx] = x[idx];
 
