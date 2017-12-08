@@ -18,10 +18,11 @@ using namespace std;
 //     return v4;
 // }
 
-__global__
-void evaluate(float *x, float *y, int n, float h){
+__global__ void evaluate(float *x, float *y, int n, float h){
     int idx = threadIdx.x;
-    printf("%d\n",x[idx]);
+    if (idx == 0) {
+        cout<<x[idx];
+    }
     y[idx] = x[idx];
 
 }
