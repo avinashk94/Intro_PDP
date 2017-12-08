@@ -2,7 +2,8 @@
 #include <iostream>
 #include <random>
 #include <vector>
-
+#include <algorithm>
+#include <functional>
 #include "a3.hpp"
 
 
