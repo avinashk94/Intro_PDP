@@ -13,7 +13,6 @@ __global__ void mykernel(){
 void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float>& y) {
     mykernel<<<1,1>>>();
     cudaDeviceSynchronize();
-    return 0;
 } // gaussian_kde
 
 #endif // A3_HPP
