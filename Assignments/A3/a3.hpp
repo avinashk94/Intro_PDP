@@ -18,7 +18,7 @@ using namespace std;
 //     return v4;
 // }
 
-_global_ void evaluate(float *x, float *y, int n, float h){
+__global__ void evaluate(float *x, float *y, int n, float h){
    int i = blockIdx.x*blockDim.x + threadIdx.x;
     if(i<n) y[i] = x[i];
 
