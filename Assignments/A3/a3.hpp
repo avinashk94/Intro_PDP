@@ -18,28 +18,27 @@ void evaluate(float *x, float *y, int n, float h){
 
 void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float>& y) {
 
-float *d_x,*d_y;
-int m =32;
+    float *d_x,*d_y;
+    int m = 16;
 
-int size = n*sizeof(float);
+    int size = n*sizeof(float);
 
-cudaMalloc(&d_x, n*sizeof(float));
-cudaMalloc(&d_y, n*sizeof(float));
+    cudaMalloc(&d_x, n*sizeof(float));
+    cudaMalloc(&d_y, n*sizeof(float));
 
-cudaMemcpy(d_x, &x, size , cudaMemcpyHostToDevice);
+    cudaMemcpy(d_x, &x, size , cudaMemcpyHostToDevice);
 
-dim3 dimGrid((int)ceil(n/m), (int)ceil(n/m));
-dim3 dimBlock(m,m);
+    dim3 dimGrid((int)ceil(n/m), (int)ceil(n/m));
+    dim3 dimBlock(m,m);
 
-evaluate<<<dimGrid, dimBlock>>>(d_x, d_y, n, h);
+    evaluate<<<dimGrid, dimBlock>>>(d_x, d_y, n, h);
 
-cudaMemcpy(&y, d_y, size , cudaMemcpyDeviceToHost);
+    cudaMemcpy(&y, d_y, size , cudaMemcpyDeviceToHost);
 
-for(int i =0;i<n;i++)
-std::cout<<y[i]<<"\n";
+    for(int i =0;i<n;i++) cout<<y[i]<<"\n";
 
-cudaFree(d_x);
-cudaFree(d_y);
+    cudaFree(d_x);
+    cudaFree(d_y);
 
 } // gaussian_kde
 
