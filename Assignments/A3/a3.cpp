@@ -6,8 +6,6 @@
 #include <functional>
 #include "a3.hpp"
 
-using namespace std;
-
 
 int main(int argc, char* argv[]) {
     if (argc != 3) {
@@ -43,9 +41,6 @@ int main(int argc, char* argv[]) {
     gaussian_kde(n, h, x, y);
 
     auto t1 = std::chrono::system_clock::now();
-    for (int i = 0; i < 5; i++) {
-        cout<<x[i]<<"\t"<<y[i]<<endl;
-    }
 
     auto elapsed_par = std::chrono::duration<double>(t1 - t0);
     std::cout << "Tp: " << elapsed_par.count() << "s" << std::endl;
