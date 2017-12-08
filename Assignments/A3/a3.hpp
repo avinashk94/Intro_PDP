@@ -9,29 +9,23 @@
 
 using namespace std;
 
-// __device__
-// float computek(float v){
-//     float v1= powf(v,2);
-//     float v2 = expf(-v1/2);
-//     float v3 = sqrtf(2*M_PI);
-//     float v4 = v2/v3;
-//     return v4;
-// }
-
-__global__ void evaluate(float *x, float *y, int n, float h){
-    int i = blockIdx.x*blockDim.x + threadIdx.x;
+_global_ void evaluate(float *x, float *y, int n, float h){
+ int i = blockIdx.x*blockDim.x + threadIdx.x;
     if(i<n) y[i] = x[i];
+
 }
 
 void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float>& y) {
     printf("Hello....\n");
     int m = 4;
+
     float *deviceX, *deviceY;
 
     int size = n*sizeof(float);
 
     cudaMalloc(&deviceX, size);
     cudaMalloc(&deviceY, size);
+
     cudaMemcpy(deviceX, &x, size, cudaMemcpyHostToDevice);
 
     evaluate<<<(int)ceil(n/m),m,m>>>(deviceX, deviceY,n,h);
