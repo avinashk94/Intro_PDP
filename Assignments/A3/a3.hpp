@@ -93,7 +93,7 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
    cudaMemcpy(y.data(), deviceY, size, cudaMemcpyDeviceToHost);
 
    printf("End!!!!!!!!!\n");
-   for (int i = 0; i < n; i++) {
+   for (int i = 0; i < 10; i++) {
        cout<<x[i]<<"-->"<<y[i]<<endl;
    }
 } // gaussian_kde
