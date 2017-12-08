@@ -19,7 +19,7 @@ using namespace std;
 // }
 
 __global__ void evaluate(float *x, float *y, int n, float h){
-    int idx = threadIdx.x;
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx == 0) {
         printf("%d\n",x[idx]);
     }
