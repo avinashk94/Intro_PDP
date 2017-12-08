@@ -20,8 +20,9 @@ using namespace std;
 
 __global__
 void evaluate(float *x, float *y, int n, float h){
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
-    printf("%d\n",x[i]);
+    int idx = threadIdx.x;
+    printf("%d\n",x[idx]);
+    y[idx] = x[idx];
 
 }
 
@@ -38,12 +39,9 @@ void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float
 
     cudaMemcpy(&deviceX, &x, size, cudaMemcpyHostToDevice);
 
-    // dim3 dimGrid((int)ceil(n/m), (int)ceil(n/m));
-    // dim3 dimBlock(m);
-
-    // evaluate<<<dimGrid, dimBlock>>>(d_x, d_y, n, h);
-
     evaluate<<<(int)ceil(n/m),m>>>(deviceX, deviceY,n,h);
+
+    cudaMemcpy(&Y, &deviceY, size, cudaMemcpyDeviceToHost);
 
     printf("End!!!!!!!!!\n");
     for (int i = 0; i < 5; i++) {
