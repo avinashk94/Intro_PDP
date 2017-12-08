@@ -7,5 +7,5 @@ __global__ void mykernel(){
 
 void hello(){
   mykernel<<<1,1>>>();
-  cudaDeviceSynchronize();
+  // cudaDeviceSynchronize();
 }
