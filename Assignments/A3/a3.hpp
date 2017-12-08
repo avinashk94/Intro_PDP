@@ -38,7 +38,12 @@ void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float
 
     cudaMemcpy(&deviceX, &x, size, cudaMemcpyHostToDevice);
 
-    evaluate<<<1,1>>>(deviceX, deviceY,n,h);
+    // dim3 dimGrid((int)ceil(n/m), (int)ceil(n/m));
+    // dim3 dimBlock(m);
+
+    // evaluate<<<dimGrid, dimBlock>>>(d_x, d_y, n, h);
+
+    evaluate<<<(int)ceil(n/m),m>>>(deviceX, deviceY,n,h);
 
     printf("End!!!!!!!!!\n");
     for (int i = 0; i < 5; i++) {
