@@ -91,8 +91,8 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
    for (int j = 0; j < n; j++) {
        int k = 0;
        for (int a, i = 0; i < n; i++) {
-           a = (x[0] - x[i])/h
-           k += expf(-powf(a,2))
+           a = (x[0] - x[i])/h;
+           k += expf(-powf(a,2));
        }
        y[j] = A*k;
    }
