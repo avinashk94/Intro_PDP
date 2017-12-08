@@ -67,11 +67,6 @@ __global__ void evaluate(float *x, float *y, int n, float h,int m){
         y[i]=0;
         y[i]+=computek(x[i]-buf[tx]);
     }
- // if (idx == 0) {
-   //    std::cout<<x[idx];
-  // }
-//   if(i<n) y[i] = x[i];
-
 
 }
 
@@ -87,12 +82,22 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
    cudaMalloc(&deviceY, size);
 
    cudaMemcpy(deviceX, x.data(), size, cudaMemcpyHostToDevice);
-
    evaluate<<<(int)ceil(n/m),m,m*sizeof(float)>>>(deviceX, deviceY,n,h,m);
-
    cudaMemcpy(y.data(), deviceY, size, cudaMemcpyDeviceToHost);
-
    printf("End!!!!!!!!!\n");
+
+   int A = 1/(n*h*sqrtf(2*M_PI))
+   cout<<A<<endl;
+   for (int j = 0; j < n; j++) {
+       int k = 0
+       for (int a, i = 0; i < n; i++) {
+           a = (x[0] - x[i])/h
+           k += expf(-powf(a,2))
+       }
+       y[j] = A*k;
+   }
+
+
    for (int i = 0; i < 10; i++) {
        cout<<x[i]<<"-->"<<y[i]<<endl;
    }
