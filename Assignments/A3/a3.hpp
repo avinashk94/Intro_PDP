@@ -10,6 +10,7 @@
 void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float>& y) {
     printf("Hello....\n");
     hello();
+    printf("End!!!!!!!!!\n");
 } // gaussian_kde
 
 #endif // A3_HPP
