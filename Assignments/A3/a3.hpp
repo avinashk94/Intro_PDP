@@ -5,14 +5,10 @@
 
 #ifndef A3_HPP
 #define A3_HPP
-
-__global__ void mykernel(){
-  printf("Hello from mykernel\n");
-}
+#include "a3.cu"
 
 void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float>& y) {
-    mykernel<<<1,1>>>();
-    cudaDeviceSynchronize();
+    hello();
 } // gaussian_kde
 
 #endif // A3_HPP
