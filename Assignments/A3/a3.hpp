@@ -27,16 +27,16 @@ void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float
     printf("Hello....\n");
     int m = 4;
     float *deviceX, *deviceY;
+
     int size = n*sizeof(float);
 
     cudaMalloc(&deviceX, size);
     cudaMalloc(&deviceY, size);
+    cudaMemcpy(deviceX, &x, size, cudaMemcpyHostToDevice);
 
-    cudaMemcpy(deviceX, &x, size , cudaMemcpyHostToDevice);
+    evaluate<<<(int)ceil(n/m),m,m>>>(deviceX, deviceY,n,h,m);
 
-    evaluate<<<(int)ceil(n/m), m>>>(deviceX, deviceY, n, h);
-
-    cudaMemcpy(&y, deviceY, size , cudaMemcpyDeviceToHost);
+    cudaMemcpy(&y, deviceY, size, cudaMemcpyDeviceToHost);
 
     printf("End!!!!!!!!!\n");
     for (int i = 0; i < 5; i++) {
