@@ -44,7 +44,7 @@ int main(int argc, char* argv[]) {
 
     auto t1 = std::chrono::system_clock::now();
     for (int i = 0; i < n; i++) {
-        cout<<x[i]<<"\t"<<end;
+        cout<<x[i];
     }
 
     auto elapsed_par = std::chrono::duration<double>(t1 - t0);
