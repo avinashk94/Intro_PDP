@@ -20,8 +20,9 @@ using namespace std;
 
 __global__ void evaluate(float *x, float *y, int n, float h){
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    if(idx<n) y[idx] = x[idx];
-
+    if(idx<n) {
+        y[idx] = x[idx];
+    }
 }
 
 void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float>& y) {
