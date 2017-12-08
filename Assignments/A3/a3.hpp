@@ -86,12 +86,12 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
    cudaMemcpy(y.data(), deviceY, size, cudaMemcpyDeviceToHost);
    printf("End!!!!!!!!!\n");
 
-   int A = 1/(n*h*sqrtf(2*M_PI));
+   float A = 1/(n*h*sqrtf(2*M_PI));
    cout<<A<<endl;
    for (int j = 0; j < n; j++) {
-       int k = 0;
-       for (int a, i = 0; i < n; i++) {
-           a = (x[0] - x[i])/h;
+       float k = 0;
+       for (int i = 0; i < n; i++) {
+           float a = (x[0] - x[i])/h;
            k += expf(-powf(a,2));
        }
        y[j] = A*k;
