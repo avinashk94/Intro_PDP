@@ -41,7 +41,7 @@ void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float
     cudaMemcpy(&deviceX, &x, size, cudaMemcpyHostToDevice);
 
     evaluate<<<(int)ceil(n/m),m>>>(deviceX, deviceY,n,h);
-
+    cudaDeviceSynchronize();
     cudaMemcpy(&y, &deviceY, size, cudaMemcpyDeviceToHost);
 
     printf("End!!!!!!!!!\n");
