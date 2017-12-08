@@ -7,6 +7,8 @@
 #define A3_HPP
 #include <math.h>
 
+using namespace std;
+
 // __device__
 // float computek(float v){
 //     float v1= powf(v,2);
