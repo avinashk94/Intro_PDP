@@ -1,11 +1,13 @@
 #include <stdio.h>
-#include "file1.hpp"
+#include "file1.h"
 
 __global__ void mykernel(){
   printf("Hello from mykernel\n");
 }
 
-void hello(){
+int hello(){
+
   mykernel<<<1,1>>>();
   cudaDeviceSynchronize();
+  return 0;
 }
