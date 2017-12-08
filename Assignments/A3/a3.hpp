@@ -1,6 +1,6 @@
-/*  YOUR_FIRST_NAME
- *  YOUR_LAST_NAME
- *  YOUR_UBIT_NAME
+/*  AVINASH
+ *  KOMMINENI
+ *  akommine
  */
 
 #ifndef A3_HPP
