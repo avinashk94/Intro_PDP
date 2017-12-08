@@ -20,7 +20,7 @@ using namespace std;
 
 __global__ void evaluate(float *x, float *y, int n, float h){
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    if(i<n) y[idx] = x[idx];
+    if(idx<n) y[idx] = x[idx];
 
 }
 
