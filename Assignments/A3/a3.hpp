@@ -5,9 +5,10 @@
 
 #ifndef A3_HPP
 #define A3_HPP
-#include "file1.h"
+#include "a3.cu"
 
 void gaussian_kde(int n, float h, const std::vector<float>& x, std::vector<float>& y) {
+    printf("Hello....\n");
     hello();
 } // gaussian_kde
 
