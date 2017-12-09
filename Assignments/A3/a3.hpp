@@ -19,7 +19,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
     int i = bdx*m + idx;
     float k = 0.0;
     float xi = x[i];
-    if(i==0)printf("GridDim:%d \t BlockDim:%d", gridDim.x, blockDim.x);
+    // if(i==0)printf("GridDim:%d \t BlockDim:%d", gridDim.x, blockDim.x);
 
     if(i<n){
         for (int l = 0; l < gridDim.x; l++) {
@@ -30,8 +30,9 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
                 k += expf(-powf(a,2));
             }
             __syncthreads();
+            k = Xs[idx];
         }
-        y[i] = A*k;
+        y[i] = k;
     }
 }
 
