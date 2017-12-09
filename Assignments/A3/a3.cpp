@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     int n = std::atoi(argv[1]);
     float h = std::atof(argv[2]);
 
-    if (n < 32) {
+    if (n < 4) {
         std::cout << "hey, n is too small even for debugging!" << std::endl;
         return -1;
     }
