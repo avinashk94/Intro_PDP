@@ -21,17 +21,19 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
     float xi = x[i];
     if(i==0)printf("GridDim:%d \t BlockDim:%d", gridDim.x, blockDim.x);
 
-    for (int i = 0; i < gridDim.x; i++) {
-        Xs[idx] = x[i*m + idx];
-        __syncthreads();
-        for (int j = 0; i < m; i++) {
-            float a = (xi - Xs[j])/h;
-            k += expf(-powf(a,2));
+    if(i<n){
+        for (int i = 0; i < gridDim.x; i++) {
+            Xs[idx] = x[i*m + idx];
+            __syncthreads();
+            for (int j = 0; i < m; i++) {
+                float a = (xi - Xs[j])/h;
+                k += expf(-powf(a,2));
+            }
+            __syncthreads();
+            k = Xs[idx];
         }
-        __syncthreads();
-        k = Xs[idx];
+        y[i] = k;
     }
-    y[i] = k;
 }
 
 void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) {
