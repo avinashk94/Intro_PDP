@@ -36,7 +36,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
 
 void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) {
    printf("Hello....\n");
-   int m = 4;
+   int m = 32;
 
    float *deviceX, *deviceY;
 
@@ -49,7 +49,7 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
    cudaMemcpy(deviceX, x.data(), size, cudaMemcpyHostToDevice);
    evaluate<<<(int)ceil((float)n/(float)m),m,m*sizeof(float)>>>(deviceX, deviceY,n,h,A);
    cudaMemcpy(y.data(), deviceY, size, cudaMemcpyDeviceToHost);
-   printf("End!!!!!!!!!%d\n",ceil((float)n/(float)m));
+   printf("End!!!!!!!!!%d\n",(int)ceil((float)n/(float)m));
 
    cout<<A<<endl;
    vector<float> y2(n);
