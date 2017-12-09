@@ -22,15 +22,14 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
     if(i==0)printf("GridDim:%d \t BlockDim:%d", gridDim.x, blockDim.x);
 
     if(i<n){
-        for (int i = 0; i < gridDim.x; i++) {
-            Xs[idx] = x[i*m + idx];
+        for (int l = 0; l < gridDim.x; l++) {
+            Xs[idx] = x[l*m + idx];
             __syncthreads();
-            for (int j = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
                 float a = (xi - Xs[j])/h;
                 k += expf(-powf(a,2));
             }
             __syncthreads();
-            k = Xs[idx];
         }
         y[i] = k;
     }
