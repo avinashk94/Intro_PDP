@@ -25,12 +25,12 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
         for (int l = 0; l < gridDim.x; l++) {
             Xs[idx] = x[l*m + idx];
             __syncthreads();
-            for (int j = 0; j < m; j++) {
+            for (int j = 0; j < m && j<; j++) {
                 float a = (xi - Xs[j])/h;
                 k += expf(-powf(a,2));
             }
             __syncthreads();
-            k = Xs[idx];
+            // k = Xs[idx];
         }
         y[i] = k;
     }
