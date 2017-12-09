@@ -31,10 +31,11 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
                     k += expf(-powf(a,2));
                 }
                 __syncthreads();
-                k = Xs[idx];
+                k = xi;
             }
         }
-        y[i] = A*k;
+        // y[i] = A*k;
+        y[i] = k;
     }
 }
 
