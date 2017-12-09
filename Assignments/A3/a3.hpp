@@ -18,10 +18,10 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
     int bdx = blockIdx.x;
     int i = bdx*m + idx;
     float k = 0.0;
-    float xi = x[i];
     // if(i==0)printf("GridDim:%d \t BlockDim:%d", gridDim.x, blockDim.x);
 
     if(i<n){
+        float xi = x[i];
         for (int l = 0; l < gridDim.x; l++) {
             if(l*m + idx < n){
                 Xs[idx] = x[l*m + idx];
