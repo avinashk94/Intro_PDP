@@ -31,7 +31,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
             }
             __syncthreads();
         }
-        y[i] = k;
+        y[i] = A*k;
     }
 }
 
@@ -60,7 +60,7 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
            float a = (x[j] - x[i])/h;
            k += expf(-powf(a,2));
        }
-       y2[j] = k;
+       y2[j] = A*k;
    }
 
 
