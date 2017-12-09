@@ -32,6 +32,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
                 }
                 float a = (xi - Xs[j])/h;
                 k += expf(-powf(a,2));
+                k = Xs[j];
             }
             __syncthreads();
             // k = xi;
