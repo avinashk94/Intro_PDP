@@ -32,7 +32,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
             __syncthreads();
             // k = Xs[idx];
         }
-        y[i] = k;
+        y[i] = A*k;
     }
 }
 
