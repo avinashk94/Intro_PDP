@@ -28,7 +28,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
             Xs[idx] = x[l*m + idx];
             __syncthreads();
             for (int v = 0; v < m; v++) {
-                printf("l is %i v is %i Xs is %f\n",l,v,Xs[idx] );
+                printf("l is %i v is %i Xs is %f and xi is %f\n",l,v,Xs[idx], xi );
             }
             for (int j = 0; j < m && (l*m + j<n); j++) {
                 printf("cur = %f - b[%d] = %f\n",xi,j,Xs[j]);
