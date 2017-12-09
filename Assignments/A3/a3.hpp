@@ -27,10 +27,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
             // if(l*m + idx < n)
             Xs[idx] = x[l*m + idx];
             __syncthreads();
-            for (int j = 0; j < m && (l*m + j<n); j++) {
-                if (l==gridDim.x) {
-                    printf("l is:%d, j is:%d",l,j);
-                }
+            for (int j = 0; j < m && (l*m + j<=i); j++) {
                 float a = (xi - Xs[j])/h;
                 k += expf(-powf(a,2));
                 // k = Xs[idx];
