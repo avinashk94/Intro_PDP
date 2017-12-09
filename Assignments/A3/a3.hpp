@@ -24,8 +24,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
         float xi = x[i];
         __syncthreads();
         for (int l = 0; l < gridDim.x; l++) {
-            // if(l*m + idx < n)
-            Xs[idx] = x[l*m + idx];
+            if(l*m + idx < n) Xs[idx] = x[l*m + idx];
             __syncthreads();
             for (int j = 0; j < m && (l*m + j<n); j++) {
                 printf("cur = %f - b[%d] = %f\n",xi,j,Xs[j]);
@@ -70,7 +69,6 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
        }
        y2[j] = k;
    }
-
 
    for (int i = 0; i < n; i++) {
        cout<<x[i]<<"\t"<<y[i]<<"\t"<<y2[i]<<endl;
