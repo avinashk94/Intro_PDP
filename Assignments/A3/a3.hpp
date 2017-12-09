@@ -75,7 +75,8 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
    }
 
    for (int i = 0; i < n; i++) {
-       cout<<x[i]<<"\t"<<y[i]<<"\t"<<y2[i]<<endl;
+       printf("%f\t %f \t %f \n", x[i],y[i],y2[i]);
+       // cout<<x[i]<<"\t"<<y[i]<<"\t"<<y2[i]<<endl;
    }
 } // gaussian_kde
 
