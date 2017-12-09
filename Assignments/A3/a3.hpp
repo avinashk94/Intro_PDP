@@ -23,16 +23,15 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
     if(i<n){
         float xi = x[i];
         for (int l = 0; l < gridDim.x; l++) {
-            if(l*m + idx < n){
-                Xs[idx] = x[l*m + idx];
-                __syncthreads();
-                for (int j = 0; j < m && (l*m + j)<n; j++) {
-                    float a = (xi - Xs[j])/h;
-                    k += expf(-powf(a,2));
-                }
-                __syncthreads();
-                k = xi;
+            // if(l*m + idx < n)
+            Xs[idx] = x[l*m + idx];
+            __syncthreads();
+            for (int j = 0; j < m && (l*m + j<n); j++) {
+                float a = (xi - Xs[j])/h;
+                k += expf(-powf(a,2));
             }
+            __syncthreads();
+            k = xi;
         }
         // y[i] = A*k;
         y[i] = k;
@@ -64,7 +63,7 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
            float a = (x[j] - x[i])/h;
            k += expf(-powf(a,2));
        }
-       y2[j] = A*k;
+       y2[j] = k;
    }
 
 
