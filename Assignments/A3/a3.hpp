@@ -27,7 +27,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
             // if(l*m + idx < n)
             Xs[idx] = x[l*m + idx];
             __syncthreads();
-            for (int j = 0; j < m && (l*m + j<=i); j++) {
+            for (int j = 0; j < m; j++) {
                 float a = (xi - Xs[j])/h;
                 k += expf(-powf(a,2));
                 // k = Xs[idx];
