@@ -25,8 +25,12 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
         __syncthreads();
         for (int l = 0; l < gridDim.x; l++) {
             // if(l*m + idx < n)
-            Xs[idx] = x[l*m + idx];
-            __syncthreads();
+            // Xs[idx] = x[l*m + idx];
+            // __syncthreads();
+            for (int p = 0; p < count; p++) {
+                Xs[p] = x[l*m + p];
+            }
+
             for (int v = 0; v < m; v++) {
                 printf("l is %i v is %i Xs is %f and xi is %f\n",l,v,Xs[idx], xi );
             }
