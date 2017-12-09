@@ -26,16 +26,16 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
             if(l*m + idx < n){
                 Xs[idx] = x[l*m + idx];
                 __syncthreads();
-                for (int j = 0; j < m && (l*m + j)<n; j++) {
+                for (int j = 0; j < m && (l*m + j)<=n; j++) {
                     float a = (xi - Xs[j])/h;
                     k += expf(-powf(a,2));
                 }
                 __syncthreads();
-                k = xi;
+                // k = xi;
             }
         }
-        // y[i] = A*k;
-        y[i] = k;
+        y[i] = A*k;
+        // y[i] = k;
     }
 }
 
@@ -68,7 +68,7 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
    }
 
 
-   for (int i = 0; i < 10; i++) {
+   for (int i = 0; i < 14; i++) {
        cout<<x[i]<<"\t"<<y[i]<<"\t"<<y2[i]<<endl;
    }
 } // gaussian_kde
