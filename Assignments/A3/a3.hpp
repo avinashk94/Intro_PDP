@@ -19,7 +19,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
     int i = bdx*m + idx;
     float k = 0.0;
     float xi = x[i];
-
+    if(i==0)printf("%d\n", gridDim.x);
     for (int i = 0; i < gridDim.x; i++) {
         Xs[idx] = x[i*m + idx];
         __syncthreads();
@@ -34,7 +34,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
 
 void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) {
    printf("Hello....\n");
-   int m = 4;
+   int m = 32;
 
    float *deviceX, *deviceY;
 
