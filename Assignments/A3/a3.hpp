@@ -35,7 +35,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
 
 void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) {
    printf("Hello....\n");
-   int m = 32;
+   int m = 4;
 
    float *deviceX, *deviceY;
 
