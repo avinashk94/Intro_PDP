@@ -23,13 +23,15 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
 
     if(i<n){
         for (int l = 0; l < gridDim.x; l++) {
-            Xs[idx] = x[l*m + idx];
-            __syncthreads();
-            for (int j = 0; j < m; j++) {
-                float a = (xi - Xs[j])/h;
-                k += expf(-powf(a,2));
+            if(l*m + idx < n){
+                Xs[idx] = x[l*m + idx];
+                __syncthreads();
+                for (int j = 0; j < m; j++) {
+                    float a = (xi - Xs[j])/h;
+                    k += expf(-powf(a,2));
+                }
+                __syncthreads();
             }
-            __syncthreads();
             // k = Xs[idx];
         }
         y[i] = A*k;
