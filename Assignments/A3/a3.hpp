@@ -20,7 +20,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
     float k = 0.0;
 
     float xi = x[i];
-    __syncthreads();
+    // __syncthreads();
     for (int l = 0; l < gridDim.x; l++) {
         Xs[idx] = x[l*m + idx];
         __syncthreads();
