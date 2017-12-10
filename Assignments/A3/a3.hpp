@@ -28,7 +28,7 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
             float a = (xi - Xs[j])/h;
             k += expf(-powf(a,2));
         }
-        __syncthreads();
+        // __syncthreads();
     }
     y[i] = A*k;
 }
@@ -48,22 +48,9 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
    evaluate<<<(int)ceil((float)n/(float)m),m,m*sizeof(float)>>>(deviceX, deviceY,n,h,A);
    cudaMemcpy(y.data(), deviceY, size, cudaMemcpyDeviceToHost);
 
-   cout<<A<<endl;
+   // cout<<A<<endl;
    cudaFree(deviceX);
    cudaFree(deviceY);
-   // vector<float> y2(n);
-   // for (int j = 0; j < n; j++) {
-   //     float k = 0;
-   //     for (int i = 0; i < n; i++) {
-   //         float a = (x[j] - x[i])/h;
-   //         k += expf(-powf(a,2));
-   //     }
-   //     y2[j] = A*k;
-   // }
-
-   // for (int i = 0; i < n; i++) {
-   //     printf("%f\t %f \t %f \n", x[i],y[i],y2[i]);
-   // }
 } // gaussian_kde
 
 #endif // A3_HPP
