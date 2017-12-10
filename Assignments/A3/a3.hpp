@@ -49,19 +49,19 @@ void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) 
    cudaMemcpy(y.data(), deviceY, size, cudaMemcpyDeviceToHost);
 
    cout<<A<<endl;
-   vector<float> y2(n);
-   for (int j = 0; j < n; j++) {
-       float k = 0;
-       for (int i = 0; i < n; i++) {
-           float a = (x[j] - x[i])/h;
-           k += expf(-powf(a,2));
-       }
-       y2[j] = k;
-   }
+   // vector<float> y2(n);
+   // for (int j = 0; j < n; j++) {
+   //     float k = 0;
+   //     for (int i = 0; i < n; i++) {
+   //         float a = (x[j] - x[i])/h;
+   //         k += expf(-powf(a,2));
+   //     }
+   //     y2[j] = k;
+   // }
 
-   for (int i = 0; i < n; i++) {
-       printf("%f\t %f \t %f \n", x[i],y[i],y2[i]);
-   }
+   // for (int i = 0; i < n; i++) {
+   //     printf("%f\t %f \t %f \n", x[i],y[i],y2[i]);
+   // }
 } // gaussian_kde
 
 #endif // A3_HPP
