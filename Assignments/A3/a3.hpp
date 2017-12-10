@@ -20,34 +20,34 @@ __global__ void evaluate(float *x, float *y, int n, float h,float A){
     float k = 0.0;
     // if(i==0)printf("GridDim:%d \t BlockDim:%d", gridDim.x, blockDim.x);
 
-    // if(i<n){
+    if(i<n){
         float xi = x[i];
         __syncthreads();
-        for (int l = 0; l < gridDim.x; l++) {
-            // if(l*m + idx < n)
-            Xs[idx] = x[l*m + idx];
-            __syncthreads();
-            // for (int p = 0; p < m; p++) {
-            //     Xs[p] = x[l*m + p];
-            // }
+    }
+    for (int l = 0; l < gridDim.x; l++) {
+        // if(l*m + idx < n)
+        Xs[idx] = x[l*m + idx];
+        __syncthreads();
+        // for (int p = 0; p < m; p++) {
+        //     Xs[p] = x[l*m + p];
+        // }
 
-            for (int v = 0; v < m; v++) {
-                printf("l is %i v is %i Xs is %f and xi is %f\n",l,v,Xs[idx], xi );
-            }
-            for (int j = 0; j < m && (l*m + j<n); j++) {
-                printf("cur = %f - b[%d] = %f\n",xi,j,Xs[j]);
-                float a = (xi - Xs[j])/h;
-                k += expf(-powf(a,2));
-                // k += 1;
-                // k = Xs[idx];
-                // k = xi;
-            }
-            __syncthreads();
+        // for (int v = 0; v < m; v++) {
+        //     printf("l is %i v is %i Xs is %f and xi is %f\n",l,v,Xs[idx], xi );
+        // }
+        for (int j = 0; j < m && (l*m + j<n); j++) {
+            printf("cur = %f - b[%d] = %f\n",xi,j,Xs[j]);
+            float a = (xi - Xs[j])/h;
+            k += expf(-powf(a,2));
+            // k += 1;
+            // k = Xs[idx];
             // k = xi;
         }
-        // y[i] = A*k;
-        y[i] = k;
+        __syncthreads();
+        // k = xi;
     }
+    // y[i] = A*k;
+    y[i] = k;
 }
 
 void gaussian_kde(int n, float h, std::vector<float>& x, std::vector<float>& y) {
